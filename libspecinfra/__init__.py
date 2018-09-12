@@ -8,6 +8,7 @@ __version__ = '0.0.1'
 
 import sys
 import ctypes
+import os
 import libspecinfra.resource
 
 from libspecinfra.structures import SpecinfraS, BackendWrapperS
@@ -18,10 +19,11 @@ def load():
     global library
 
     if library is None:
+        libdir = os.path.dirname(os.path.abspath(__file__))
         prefix = {'win32': ''}.get(sys.platform, 'lib')
         extension = {'darwin': '.dylib', 'win32': '.dll'}.get(sys.platform, '.so')
-        library = ctypes.cdll.LoadLibrary(
-            '{}specinfra{}'.format(prefix, extension))
+        libpath = os.path.join(libdir, '{}specinfra{}'.format(prefix, extension))
+        library = ctypes.cdll.LoadLibrary(libpath)
 
     return library
 

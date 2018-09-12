@@ -1,0 +1,3 @@
+[submodule "specinfra"]
+	path = specinfra
+	url = git@github.com:libspecinfra/specinfra.git
